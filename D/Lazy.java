@@ -23,33 +23,33 @@ public class Lazy extends Thread {
         int i = (int) (Math.random() * 7) + 2;
         
         String msg [] = {
-            "I'am dressing up...",
-            "Just a sec, please...",
-            "These clothes do not suit me...",
+            "I'am dressing up...", // msg 0
+            "Just a sec, please...", // msg 1
+            "These clothes do not suit me...", // msg 2
             "That's not cricket, please play the game!", //msg 3
             "I am ready, the early bird catches the worm!" // msg 4
         };
         
         for (int j = 0; j < i; j++) {
-            try {
-                int p = (int) (Math.random() * 2);
-                
-                if (Thread.interrupted()){
-                    System.out.println("Lazy said: " + msg[3]);
-                } else {
-                    System.out.println("Lazy said: " + msg[p]);
-                }
-                
-                this.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Lazy.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+            int p = (int) (Math.random() * 2);
 
+            if (this.interrupted()){
+                System.out.println("Lazy said: " + msg[3]);
+                System.exit(0);
+            } else {
+                System.out.println("Lazy said: " + msg[p]);
+            }
+            try {
+                this.sleep(1200);
+            } catch (InterruptedException ex) {
+                System.out.println("Lazy said: " + msg[3]);
+                System.exit(0);
+            }
         }
         
-        if(!Thread.interrupted()){
+        if(!this.interrupted()){
             System.out.println("Lazy said: " + msg[4]);
-//            System.exit(0);
         }
         
     }
