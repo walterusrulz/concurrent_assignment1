@@ -17,27 +17,34 @@ import java.util.logging.Logger;
 
 
 public class Hurry {
-    public static void main(String args[]) throws InterruptedException{
+    public static void main(String args[]){
         Lazy l = new Lazy();
-        l.start();
+        
         String msg[]= {
-            "Aren't you ready yet?",
-            "You are resting in your laurels... and I am leaving!",
-            "At last, a turtle runs rings round you!"
+            "Aren't you ready yet?", // msg 0
+            "You are resting in your laurels... and I am leaving!", // msg 1
+            "At last, a turtle runs rings round you!" // msg 2
         }; 
         
+        l.start();
+        
         for (int i = 0; i < 5; i++) {
-            l.join(1000);
+            try {
+                l.join(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Hurry.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if(l.isAlive()) {
                 System.out.println("Hurry said: " + msg[0]);
             } else if(!l.isAlive()){
                 System.out.println("Hurry said: " + msg[2]);
+                break;
             }
         }
         
         if (l.isAlive()){
-            System.out.println("Hurry said: " + msg[1]);
             l.interrupt();
+            System.out.println("Hurry said: " + msg[1]);    
         }
         
     }
