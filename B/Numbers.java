@@ -9,5 +9,10 @@ package concurrent_assignment1.B;
  */
 
 public class Numbers {
-
+    public static void main (String args[]){
+        T_PrintID [5] myArray;
+        for(int i = 0;i<5;i++){
+        
+    }
+    }
 }
