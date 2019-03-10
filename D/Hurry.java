@@ -27,25 +27,23 @@ public class Hurry {
         }; 
         
         l.start();
-        
-        for (int i = 0; i < 5; i++) {
-            try {
-                l.join(1000);
-            } catch (InterruptedException ex) {
+        try {
+                for (int i = 0; i < 5; i++) {
+                        if(l.isAlive()) {
+                            System.out.println("Hurry said: " + msg[0]);
+                        } else if(!l.isAlive()){
+                            System.out.println("Hurry said: " + msg[2]);
+                        }
+                        Thread.sleep(1000);
+                }    
+                if (l.isAlive()){
+                    l.interrupt();
+                    System.out.println("Hurry said: " + msg[1]);    
+                }else{
+                    System.out.println("Hurry said: " + msg[2]);
+                }
+        } catch (InterruptedException ex) {
                 Logger.getLogger(Hurry.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(l.isAlive()) {
-                System.out.println("Hurry said: " + msg[0]);
-            } else if(!l.isAlive()){
-                System.out.println("Hurry said: " + msg[2]);
-                break;
-            }
-        }
-        
-        if (l.isAlive()){
-            l.interrupt();
-            System.out.println("Hurry said: " + msg[1]);    
-        }
-        
     }
 }

@@ -1,5 +1,6 @@
 package concurrent_assignment1.D;
 
+import static java.lang.System.exit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,27 +30,27 @@ public class Lazy extends Thread {
             "That's not cricket, please play the game!", //msg 3
             "I am ready, the early bird catches the worm!" // msg 4
         };
-        
-        for (int j = 0; j < i; j++) {
-            
-            int p = (int) (Math.random() * 2);
+        try {
+            for (int j = 0; j < i; j++) {
 
-            if (this.interrupted()){
-                System.out.println("Lazy said: " + msg[3]);
-                System.exit(0);
-            } else {
-                System.out.println("Lazy said: " + msg[p]);
-            }
-            try {
-                this.sleep(1200);
+                    int p = (int) (Math.random() * 2);
+
+                    if (this.isInterrupted()){
+                        System.out.println("Lazy said: " + msg[3]);
+                        break;
+                    } else {
+                        System.out.println("Lazy said: " + msg[p]);
+                    }
+                        this.sleep(1200);
+                                         }
             } catch (InterruptedException ex) {
                 System.out.println("Lazy said: " + msg[3]);
-                System.exit(0);
-            }
-        }
+                exit(0);
+                }
         
-        if(!this.interrupted()){
+        if(!this.isInterrupted()){
             System.out.println("Lazy said: " + msg[4]);
+            
         }
         
     }
