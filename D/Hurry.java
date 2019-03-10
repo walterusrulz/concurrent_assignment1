@@ -27,23 +27,30 @@ public class Hurry {
         }; 
         
         l.start();
+        boolean flag= false;
         try {
                 for (int i = 0; i < 5; i++) {
                         if(l.isAlive()) {
                             System.out.println("Hurry said: " + msg[0]);
-                        } else if(!l.isAlive()){
+                        } else if(!l.isAlive()&&!flag){
                             System.out.println("Hurry said: " + msg[2]);
+                            flag = true;
                         }
                         Thread.sleep(1000);
+                        //Sometimes Lazy finishes just outside the 5 sec deadline,
+                        //but is already dead when it reaches the outside loop. To
+                        //counteract this behaviour we once again check if Lazy is
+                        //finished. The flag is to make sure we do not enter twice
+                        //the [2] message.
                 }    
                 if (l.isAlive()){
                     l.interrupt();
                     System.out.println("Hurry said: " + msg[1]);    
-                }else{
+                }else if(!flag){
                     System.out.println("Hurry said: " + msg[2]);
                 }
         } catch (InterruptedException ex) {
-                Logger.getLogger(Hurry.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Something weird happened...");
             }
     }
 }

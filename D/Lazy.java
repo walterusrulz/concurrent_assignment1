@@ -45,7 +45,7 @@ public class Lazy extends Thread {
                                          }
             } catch (InterruptedException ex) {
                 System.out.println("Lazy said: " + msg[3]);
-                exit(0);
+                this.interrupt();
                 }
         
         if(!this.isInterrupted()){
